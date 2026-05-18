@@ -10,18 +10,20 @@ public abstract class Weapon {
 	private int damage;
 	private dangerous danger;
 	private boolean isMagical;
+	private int guarantee;
 	
 	enum dangerous {
 		SAFE, DANGEROUS, VERY_DANGEROUS
 	}
 
-	public Weapon(int id, String name, double price, int damage, dangerous danger, boolean isMagical) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+	public Weapon(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		setId(id);
 		setName(name);
 		setPrice(price);
 		setDamage(damage);
 		setDanger(danger);
 		setMagical(isMagical);
+		setGuarantee(guarantee);
 	}
 	
 	public Weapon() {
@@ -92,19 +94,16 @@ public abstract class Weapon {
 		this.isMagical = isMagical;
 	}
 	
-	/**
-	 * Returns a Strihng with all the weapon's data
-	 */
-	public String toString() {
-		String magicWeapon;
-		
-		if (isMagical) {
-			magicWeapon = "This weapon requires magic skills";
+	public int getGuarantee() {
+		return guarantee;
+	}
+	
+	public void setGuarantee(int guarantee) throws NegativeNumberException {
+		if (guarantee >= 0) {
+			this.guarantee = guarantee;
 		} else {
-			magicWeapon = "This weapon does not require magic skills";
+			throw new NegativeNumberException();
 		}
-		
-		return "ID: " + id + " | Name: " + name + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon;
 	}
 	
 	/**
@@ -133,5 +132,20 @@ public abstract class Weapon {
 	 * @param danger
 	 * @return How many years will last that guarantee
 	 */
-	public abstract int calculateGuarantee(dangerous danger);
+	public abstract void calculateGuarantee();
+	
+	/**
+	 * Returns a Strihng with all the weapon's data
+	 */
+	public String toString() {
+		String magicWeapon;
+		
+		if (isMagical) {
+			magicWeapon = "This weapon requires magic skills";
+		} else {
+			magicWeapon = "This weapon does not require magic skills";
+		}
+		
+		return "ID: " + id + " | Name: " + name + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon + " | Guarantee: " + guarantee;
+	}
 }

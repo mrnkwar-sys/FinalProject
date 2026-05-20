@@ -1,21 +1,18 @@
 package mainclasses;
 
 import interfaces.Throwable;
+import interfaces.Carryable;
 import exceptions.*;
 
-public class Axe extends Weapon implements Throwable {
+public class Axe extends Weapon implements Throwable, Carryable {
 	private int power;
-	private typeWeight weight;
-	
-	enum typeWeight {
-		LIGHT, HEAVY
-	}
+	private TypeWeight weight;
 
 	public Axe(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee, int power,
-			typeWeight weight) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
+			TypeWeight weight) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
-		this.power = power;
-		this.weight = weight;
+		setPower(power);
+		setWeight(weight);
 	}
 	
 	public Axe() {
@@ -34,11 +31,12 @@ public class Axe extends Weapon implements Throwable {
 		}
 	}
 
-	public typeWeight getWeight() {
+	@Override
+	public TypeWeight getWeight() {
 		return weight;
 	}
 
-	public void setWeight(typeWeight weight) {
+	public void setWeight(TypeWeight weight) {
 		this.weight = weight;
 	}
 	
@@ -63,30 +61,31 @@ public class Axe extends Weapon implements Throwable {
 	}
 	
 	/**
-	 * If the weapon is heavy, a case for it will be suggested to the client
-	 * @return True if the weapon is heavy
+	 * Based on the weapon's power, it predicts how long it will take for it to wear out
+	 * @return A phrase related to its possible useful time
 	 */
-	public boolean suggestCase() {
-		boolean needsCase = false;
+	public String predictWearing() {
+		String possibleWearing;
 		
-		if (weight == typeWeight.HEAVY) {
-			needsCase = true;
+		if (power <= 15) {
+			possibleWearing = "Not a lot of power, but might this relationship last a really long, long time?";
+		} else if (power <= 35){
+			possibleWearing = "Don’t worry, with the right care, it’ll last you a long time";
+		} else {
+			possibleWearing = "Perhaps time is the price one pays for having so much power...";
 		}
 		
-		return needsCase;
+		return possibleWearing;
 	}
 	
 	@Override
 	public String toString() {
-		String aCase;
-		
-		if (suggestCase()) {
-			aCase = "You should use a case with this one";
-		} else {
-			aCase = "You do not need a case for this one, but it will be cute";
-		}
-		
-		return super.toString() + " | Power: " + power + " | Weight: " + weight.name() + " | Power: " + power + " | Weight: " + weight.name() + " | Case: " + aCase;
+		return super.toString();
+	}
+	
+	@Override
+	public String toStringAdditionalData() {
+		return " | Power: " + power + " | Weight: " + weight.name() + " | Power: " + power + " | Weight: " + weight.name() + " | Case: " + suggestCase();
 	}
 
 }

@@ -135,7 +135,13 @@ public abstract class Weapon {
 	public abstract void calculateGuarantee();
 	
 	/**
-	 * Returns a Strihng with all the weapon's data
+	 * Returns a String with the additional data (power, type...) for each weapon
+	 * @return String
+	 */
+	public abstract String toStringAdditionalData();
+	
+	/**
+	 * Returns a String with all the weapon's data
 	 */
 	public String toString() {
 		String magicWeapon;
@@ -146,6 +152,6 @@ public abstract class Weapon {
 			magicWeapon = "This weapon does not require magic skills";
 		}
 		
-		return "ID: " + id + " | Name: " + name + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon + " | Guarantee: " + guarantee;
+		return "ID: " + id + " | Name: " + name + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon;
 	}
 }

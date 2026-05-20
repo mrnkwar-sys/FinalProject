@@ -14,8 +14,8 @@ public class Gun extends Weapon implements ConsumableMagic {
 	public Gun(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
 			int power, noisy noise) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
-		this.power = power;
-		this.noise = noise;
+		setPower(power);
+		setNoise(noise);
 	}
 	
 	public Gun() {
@@ -66,7 +66,21 @@ public class Gun extends Weapon implements ConsumableMagic {
 		String levelNoise;
 		
 		if (noise == noisy.NOISY) {
-			levelNoise = "";
+			levelNoise = "Quiet as a cat's step";
+		} else {
+			levelNoise = "Noisy like exploding fireworks";
 		}
+		
+		return levelNoise;
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+	
+	@Override
+	public String toStringAdditionalData() {
+		return "Power: " + power + " | Level of noise it produces: " + noise.name();
 	}
 }

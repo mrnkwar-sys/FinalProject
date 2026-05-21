@@ -11,8 +11,8 @@ public class Hammer extends Weapon implements Throwable {
 			int strengthRequired, TypeWeight weight)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
-		this.strengthRequired = strengthRequired;
-		this.weight = weight;
+		setStrengthRequired(strengthRequired);
+		setWeight(weight);
 	}
 	
 	public Hammer() {
@@ -59,8 +59,38 @@ public class Hammer extends Weapon implements Throwable {
 		}
 	}
 	
+	/**
+	 * Based on its weight, it tells the user the radius of the shock wave
+	 * @return String with that information
+	 */
 	public String showShockWave() {
+		String shockWave;
 		
+		if (weight == TypeWeight.HEAVY) {
+			shockWave = "This hammer should cause a shock wave of approximately 1 km";
+		} else {
+			shockWave = "This hammer should cause a shock wave of approximately 250 m";
+		}
+		
+		return shockWave;
+	}
+	
+	/**
+	 * Based on its damage, tells what the hammer is capable of breaking and destroying
+	 * @return String with the information
+	 */
+	public String breakingStrength() {
+		String breakStrength;
+		
+		if (super.getDamage() <= 3) {
+			breakStrength = "It’s perfectly capable of breaking wood, ice, glass... it might cause a few bruises";
+		} else if (super.getDamage() <= 6) {
+			breakStrength = "This tenderness can break through walls, stone, metal... be careful not to throw it at someone";
+		} else {
+			breakStrength = "Nothing can withstand this hammer (expect the worst if you hit someone with it)";
+		}
+		
+		return breakStrength;
 	}
 	
 	@Override

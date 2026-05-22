@@ -13,8 +13,12 @@ public class Independent extends Client implements AvailableWeapon {
 
 	public Independent(int id, String name, int numberOfOrders, int age, LevelExperience experience) throws NegativeNumberException, UnderAgeException, EmptyStringException {
 		super(id, name, numberOfOrders);
-		this.age = age;
-		this.experience = experience;
+		setAge(age);
+		setExperience(experience);
+	}
+	
+	public Independent() {
+		
 	}
 
 	public int getAge() {
@@ -39,11 +43,11 @@ public class Independent extends Client implements AvailableWeapon {
 	
 	//Independent clients only receive a discount if they have purchased a weapon at least twice before
 	@Override
-	public double applyDiscount() {
+	public double applyDiscount(double finalPrice) {
 		double discount = 0;
 		
 		if (super.getNumberOfOrders() >= 2) {
-			discount = 0.1;
+			discount = finalPrice*0.1;
 		}
 		
 		return discount;
@@ -57,11 +61,11 @@ public class Independent extends Client implements AvailableWeapon {
 		String possibleRec;
 		
 		if (experience == LevelExperience.EXPERT) {
-			possibleRec = "Be free to choose anything you love!!";
+			possibleRec = "Be free to choose anything you love!! (You will be able to buy safe, dangerous and very dangerous weapons)";
 		} else if (experience == LevelExperience.MEDIUM) {
-			possibleRec = "Having a Medium Experience, guns and hammers might be a little too much, but try to give a chance to guns and heavy swords";
+			possibleRec = "Having a Medium Experience, guns and hammers might be a little too much, but try to give a chance to guns and heavy swords (You will be able to buy safe and dangerous weapons)";
 		} else {
-			possibleRec = "Try to give a look to grenades, wands and light swords; they are usually the weapons of choice for those who are new to this magical experience";
+			possibleRec = "Try to give a look to grenades, wands and light swords; they are usually the weapons of choice for those who are new to this magical experience (You will only be able to buy safe weapons)";
 		}
 		
 		return possibleRec;

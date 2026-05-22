@@ -12,6 +12,10 @@ public abstract class Client {
 		setName(name);
 		setNumberOfOrders(numberOfOrders);
 	}
+	
+	public Client() {
+		
+	}
 
 	public int getId() {
 		return id;
@@ -67,5 +71,5 @@ public abstract class Client {
 	 * Applies a discount or not depending on the type of client
 	 * @return The percentage of discount
 	 */
-	public abstract double applyDiscount();
+	public abstract double applyDiscount(double finalPrice);
 }

@@ -7,7 +7,7 @@ public class Hammer extends Weapon implements Throwable {
 	private int strengthRequired;
 	private TypeWeight weight;
 	
-	public Hammer(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
+	public Hammer(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			int strengthRequired, TypeWeight weight)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
@@ -47,9 +47,9 @@ public class Hammer extends Weapon implements Throwable {
 	@Override 
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(1);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(2);
 			} else {
 				super.setGuarantee(3);
@@ -91,6 +91,19 @@ public class Hammer extends Weapon implements Throwable {
 		}
 		
 		return breakStrength;
+	}
+	
+	@Override
+	public int calculateRange() {
+		int range;
+		
+		if (weight == TypeWeight.HEAVY) {
+			range = 10;
+		} else {
+			range = 20;
+		}
+		
+		return range;
 	}
 	
 	@Override

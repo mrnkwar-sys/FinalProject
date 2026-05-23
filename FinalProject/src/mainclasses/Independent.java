@@ -6,10 +6,6 @@ import exceptions.*;
 public class Independent extends Client implements AvailableWeapon {
 	private int age;
 	private LevelExperience experience;
-	
-	enum LevelExperience {
-		NOVICE, MEDIUM, EXPERT
-	}
 
 	public Independent(int id, String name, int numberOfOrders, int age, LevelExperience experience) throws NegativeNumberException, UnderAgeException, EmptyStringException {
 		super(id, name, numberOfOrders);
@@ -33,8 +29,8 @@ public class Independent extends Client implements AvailableWeapon {
 		}
 	}
 
-	public LevelExperience getExperience() {
-		return experience;
+	public LevelExperience getIndependentExperience() {
+		return this.experience;
 	}
 
 	public void setExperience(LevelExperience experience) {

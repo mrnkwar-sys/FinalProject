@@ -8,15 +8,11 @@ public abstract class Weapon {
 	private double price;
 	//Range of damage: 1-10, where 1 is the least damage a weapon can cause, and 10 the most 
 	private int damage;
-	private dangerous danger;
+	private Dangerous danger;
 	private boolean isMagical;
 	private int guarantee;
-	
-	enum dangerous {
-		SAFE, DANGEROUS, VERY_DANGEROUS
-	}
 
-	public Weapon(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+	public Weapon(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		setId(id);
 		setName(name);
 		setPrice(price);
@@ -78,11 +74,11 @@ public abstract class Weapon {
 		}
 	}
 
-	public dangerous getDanger() {
+	public Dangerous getDanger() {
 		return danger;
 	}
 
-	public void setDanger(dangerous danger) {
+	public void setDanger(Dangerous danger) {
 		this.danger = danger;
 	}
 

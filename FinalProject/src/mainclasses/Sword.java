@@ -11,7 +11,7 @@ public class Sword extends Weapon implements Carryable {
 		ONE_HAND, HAND_AND_A_HALF, TWO_HAND
 	}
 	
-	public Sword(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
+	public Sword(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			hands type, TypeWeight weight) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
 		setType(type);
@@ -47,9 +47,9 @@ public class Sword extends Weapon implements Carryable {
 	@Override 
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(3);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(4);
 			} else {
 				super.setGuarantee(5);

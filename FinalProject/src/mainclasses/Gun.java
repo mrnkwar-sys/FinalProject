@@ -11,7 +11,7 @@ public class Gun extends Weapon implements ConsumableMagic {
 		SILENT, NOISY
 	}
 
-	public Gun(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
+	public Gun(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			int power, noisy noise) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
 		setPower(power);
@@ -50,9 +50,9 @@ public class Gun extends Weapon implements ConsumableMagic {
 	@Override
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(1);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(3);
 			} else {
 				super.setGuarantee(2);
@@ -72,6 +72,19 @@ public class Gun extends Weapon implements ConsumableMagic {
 		}
 		
 		return levelNoise;
+	}
+	
+	@Override
+	public int magicConsumed() {
+		int percentageMagic;
+		
+		if (super.getDamage() >= 5) {
+			percentageMagic = 15;
+		} else {
+			percentageMagic = 7;
+		}
+		
+		return percentageMagic;
 	}
 	
 	@Override

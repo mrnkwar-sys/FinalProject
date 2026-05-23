@@ -8,7 +8,7 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	private int power;
 	private TypeWeight weight;
 
-	public Axe(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee, int power,
+	public Axe(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee, int power,
 			TypeWeight weight) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
 		setPower(power);
@@ -48,9 +48,9 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	@Override
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(2);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(3);
 			} else {
 				super.setGuarantee(4);
@@ -76,6 +76,19 @@ public class Axe extends Weapon implements Throwable, Carryable {
 		}
 		
 		return possibleWearing;
+	}
+	
+	@Override
+	public int calculateRange() {
+		int range;
+		
+		if (power <= 25) {
+			range = 4;
+		} else {
+			range = 8;
+		}
+		
+		return range;
 	}
 	
 	@Override

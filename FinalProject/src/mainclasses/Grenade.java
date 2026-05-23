@@ -9,7 +9,7 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	private int delay;
 	private boolean isIncendiary;
 	
-	public Grenade(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
+	public Grenade(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			int power, int delay, boolean isIncendiary)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
@@ -62,9 +62,9 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	@Override 
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(1);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(2);
 			} else {
 				super.setGuarantee(3);
@@ -88,6 +88,36 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 		}
 		
 		return protocol;
+	}
+	
+	@Override
+	public int magicConsumed() {
+		int percentageMagic;
+		
+		if (super.getDamage() <= 3) {
+			percentageMagic = 15;
+		} else if (super.getDamage() <= 7) {
+			percentageMagic = 20;
+		} else {
+			percentageMagic = 25;
+		}
+		
+		return percentageMagic;
+	}
+	
+	@Override
+	public int calculateRange() {
+		int range;
+		
+		if (power <= 40) {
+			range = 10;
+		} else if (power <= 80) {
+			range = 20;
+		} else {
+			range = 60;
+		}
+		
+		return range;
 	}
 	
 	@Override 

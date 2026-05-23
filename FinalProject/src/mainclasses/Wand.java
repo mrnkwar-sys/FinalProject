@@ -14,7 +14,7 @@ public class Wand extends Weapon implements ConsumableMagic {
 		WHITE_MAGIC, BLACK_MAGIC, ILUSIONISM, SPIRITUAL
 	}
 
-	public Wand(int id, String name, double price, int damage, dangerous danger, boolean isMagical, int guarantee,
+	public Wand(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			boolean isExclusive, int ownerBond, TypeMagic magic)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
@@ -59,9 +59,9 @@ public class Wand extends Weapon implements ConsumableMagic {
 	@Override 
 	public void calculateGuarantee() {
 		try {
-			if (super.getDanger() == Weapon.dangerous.SAFE) {
+			if (super.getDanger() == Dangerous.SAFE) {
 				super.setGuarantee(3);
-			} else if (super.getDanger() == Weapon.dangerous.DANGEROUS) {
+			} else if (super.getDanger() == Dangerous.DANGEROUS) {
 				super.setGuarantee(4);
 			} else {
 				super.setGuarantee(2);
@@ -89,6 +89,23 @@ public class Wand extends Weapon implements ConsumableMagic {
 		}
 		
 		return spells;
+	}
+	
+	@Override
+	public int magicConsumed() {
+		int percentageMagic;
+		
+		if (super.getDamage() <= 3) {
+			percentageMagic = 40;
+		} else if (super.getDamage() <= 5) {
+			percentageMagic = 45;
+		} else if (super.getDamage() <= 8) {
+			percentageMagic = 50;
+		} else {
+			percentageMagic = 55;
+		}
+		
+		return percentageMagic;
 	}
 	
 	@Override

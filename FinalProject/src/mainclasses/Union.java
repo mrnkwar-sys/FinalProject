@@ -6,15 +6,24 @@ public class Union extends Client {
 	private String type;
 	private int members;
 	
+	//Standard constructor
 	public Union(int id, String name, int numberOfOrders, String type, int members)
-			throws NegativeNumberException, UnderAgeException, EmptyStringException {
+			throws NegativeNumberException, EmptyStringException, NotEnoughMembersException {
 		super(id, name, numberOfOrders);
-		this.type = type;
-		this.members = members;
+		setType(type);
+		setMembers(members);
 	}
 	
+	//Empty constructor
 	public Union() {
 		
+	}
+	
+	//Copy constructor
+	public Union(Union anotherUnion) throws NegativeNumberException, EmptyStringException, NotEnoughMembersException {
+		super(anotherUnion);
+		setType(anotherUnion.type);
+		setMembers(anotherUnion.members);
 	}
 
 	public String getType() {
@@ -65,6 +74,11 @@ public class Union extends Client {
 		}
 		
 		return finalPrice;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Union," + super.toCSV() + "," + type + "," + members;
 	}
 	
 	@Override

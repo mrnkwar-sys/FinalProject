@@ -4,29 +4,34 @@ import exceptions.*;
 import interfaces.Carryable;
 
 public class Sword extends Weapon implements Carryable {
-	private hands type;
+	private Hands type;
 	private TypeWeight weight;
 	
-	enum hands {
-		ONE_HAND, HAND_AND_A_HALF, TWO_HAND
-	}
-	
+	//Standard constructor
 	public Sword(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
-			hands type, TypeWeight weight) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+			Hands type, TypeWeight weight) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
 		setType(type);
 		setWeight(weight);
 	}
 	
+	//Empty constructor
 	public Sword() {
 		
 	}
+	
+	//Copy constructor
+	public Sword(Sword anotherSword) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+		super(anotherSword);
+		setType(anotherSword.type);
+		setWeight(anotherSword.weight);
+	}
 
-	public hands getType() {
+	public Hands getType() {
 		return type;
 	}
 
-	public void setType(hands type) {
+	public void setType(Hands type) {
 		this.type = type;
 	}
 
@@ -99,15 +104,25 @@ public class Sword extends Weapon implements Carryable {
 	public String recommendShield() {
 		String shield;
 		
-		if (type == hands.ONE_HAND) {
+		if (type == Hands.ONE_HAND) {
 			shield = "Go on and use it; better safe than sorry";
-		} else if (type == hands.HAND_AND_A_HALF) {
+		} else if (type == Hands.HAND_AND_A_HALF) {
 			shield = "I mean, if you find the way to do it, try it";
 		} else {
 			shield = "You have more than two hands??!!";
 		}
 		
 		return shield;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Sword," + super.toCSV() + "," + type.toString() + "," + weight.toString();
+	}
+	
+	@Override
+	public String toString() {
+		return super.toString();
 	}
 	
 	@Override

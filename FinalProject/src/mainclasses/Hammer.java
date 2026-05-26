@@ -7,6 +7,7 @@ public class Hammer extends Weapon implements Throwable {
 	private int strengthRequired;
 	private TypeWeight weight;
 	
+	//Standard constructor
 	public Hammer(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			int strengthRequired, TypeWeight weight)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
@@ -15,8 +16,16 @@ public class Hammer extends Weapon implements Throwable {
 		setWeight(weight);
 	}
 	
+	//Empty constructor
 	public Hammer() {
 		
+	}
+	
+	//Copy constructor
+	public Hammer(Hammer anotherHammer) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+		super(anotherHammer);
+		setStrengthRequired(anotherHammer.strengthRequired);
+		setWeight(anotherHammer.weight);
 	}
 
 	public int getStrengthRequired() {
@@ -104,6 +113,11 @@ public class Hammer extends Weapon implements Throwable {
 		}
 		
 		return range;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Hammer," + super.toCSV() + "," + strengthRequired + "," + weight.toString();
 	}
 	
 	@Override

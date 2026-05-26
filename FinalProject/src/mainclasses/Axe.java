@@ -8,6 +8,7 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	private int power;
 	private TypeWeight weight;
 
+	//Standard constructor
 	public Axe(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee, int power,
 			TypeWeight weight) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
@@ -15,8 +16,16 @@ public class Axe extends Weapon implements Throwable, Carryable {
 		setWeight(weight);
 	}
 	
+	//Empty constructor
 	public Axe() {
 		
+	}
+	
+	//Copy constructor
+	public Axe(Axe anotherAxe) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
+		super(anotherAxe);
+		setPower(anotherAxe.power);
+		setWeight(anotherAxe.weight);
 	}
 
 	public int getPower() {
@@ -89,6 +98,11 @@ public class Axe extends Weapon implements Throwable, Carryable {
 		}
 		
 		return range;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Axe," + super.toCSV() + "," + power + "," + weight.toString();
 	}
 	
 	@Override

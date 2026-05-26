@@ -7,14 +7,23 @@ public class Independent extends Client implements AvailableWeapon {
 	private int age;
 	private LevelExperience experience;
 
+	//Standard constructor
 	public Independent(int id, String name, int numberOfOrders, int age, LevelExperience experience) throws NegativeNumberException, UnderAgeException, EmptyStringException {
 		super(id, name, numberOfOrders);
 		setAge(age);
 		setExperience(experience);
 	}
 	
+	//Empty constructor
 	public Independent() {
 		
+	}
+	
+	//Copy constructor
+	public Independent(Independent anotherIndependent) throws NegativeNumberException, UnderAgeException, EmptyStringException {
+		super(anotherIndependent);
+		setAge(anotherIndependent.age);
+		setExperience(anotherIndependent.experience);
 	}
 
 	public int getAge() {
@@ -65,6 +74,11 @@ public class Independent extends Client implements AvailableWeapon {
 		}
 		
 		return possibleRec;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Independent," + super.toCSV() + "," + age + "," + experience;
 	}
 	
 	@Override

@@ -9,6 +9,7 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	private int delay;
 	private boolean isIncendiary;
 	
+	//Standard constructor
 	public Grenade(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			int power, int delay, boolean isIncendiary)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
@@ -18,8 +19,17 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 		setIncendiary(isIncendiary);
 	}
 	
+	//Empty constructor
 	public Grenade() {
 		
+	}
+	
+	//Copy constructor
+	public Grenade(Grenade anotherGrenade) throws NegativeNumberException, EmptyStringException, OutOfRangeException{
+		super(anotherGrenade);
+		setPower(anotherGrenade.power);
+		setDelay(anotherGrenade.delay);
+		setIncendiary(anotherGrenade.isIncendiary);
 	}
 
 	public int getPower() {
@@ -118,6 +128,11 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 		}
 		
 		return range;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Grenade," + super.toCSV() + "," + power + "," + delay + "," + isIncendiary;
 	}
 	
 	@Override 

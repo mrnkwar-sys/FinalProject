@@ -9,11 +9,8 @@ public class Wand extends Weapon implements ConsumableMagic {
 	//If the level of bonding is low, it can be used by many people, but if it is high, it can only be used by its owner
 	private int ownerBond;
 	private TypeMagic magic;
-	
-	enum TypeMagic {
-		WHITE_MAGIC, BLACK_MAGIC, ILUSIONISM, SPIRITUAL
-	}
 
+	//Standard constructor
 	public Wand(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
 			boolean isExclusive, int ownerBond, TypeMagic magic)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
@@ -21,6 +18,19 @@ public class Wand extends Weapon implements ConsumableMagic {
 		setExclusive(isExclusive);
 		setOwnerBond(ownerBond);
 		setMagic(magic);
+	}
+	
+	//Empty constructor
+	public Wand() {
+		
+	}
+	
+	//Copy constructor
+	public Wand(Wand anotherWand) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+		super(anotherWand);
+		setExclusive(anotherWand.isExclusive);
+		setOwnerBond(anotherWand.ownerBond);
+		setMagic(anotherWand.magic);
 	}
 
 	public boolean isExclusive() {
@@ -106,6 +116,11 @@ public class Wand extends Weapon implements ConsumableMagic {
 		}
 		
 		return percentageMagic;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Wand," + super.toCSV() + "," + isExclusive + "," + ownerBond + "," + magic;
 	}
 	
 	@Override

@@ -1,5 +1,7 @@
 package mainclasses;
 
+import java.util.Objects;
+
 import exceptions.*;
 
 public abstract class Weapon {
@@ -12,6 +14,7 @@ public abstract class Weapon {
 	private boolean isMagical;
 	private int guarantee;
 
+	//Standar constructor
 	public Weapon(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		setId(id);
 		setName(name);
@@ -22,8 +25,20 @@ public abstract class Weapon {
 		setGuarantee(guarantee);
 	}
 	
+	//Empty constructor
 	public Weapon() {
 		
+	}
+	
+	//Copy constructor
+	public Weapon(Weapon anotherWeapon) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+		setId(anotherWeapon.id);
+		setName(anotherWeapon.name);
+		setPrice(anotherWeapon.price);
+		setDamage(anotherWeapon.damage);
+		setDanger(anotherWeapon.danger);
+		setMagical(anotherWeapon.isMagical);
+		setGuarantee(anotherWeapon.guarantee);
 	}
 
 	public int getId() {
@@ -118,6 +133,13 @@ public abstract class Weapon {
 	}
 	
 	/**
+	 * Returns an integer that serves as the weapon's unique identifier
+	 */
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	
+	/**
 	 * Depening on the weapon, it tells the client how to keep their weapon in good condition
 	 * @return A String with the instructions for the weapon's maintenance
 	 */
@@ -135,6 +157,22 @@ public abstract class Weapon {
 	 * @return String
 	 */
 	public abstract String toStringAdditionalData();
+	
+	/**
+	 * Applies a discount on the weapon
+	 * @param percentage
+	 */
+	public void applyUniqueDiscount(double percentage) {
+		price = price*(1 - percentage / 100);
+	}
+	
+	/**
+	 * Returns the information in a format that can be easily read and written to the file
+	 * @return
+	 */
+	public String toCSV() {
+		return id + "," + name + "," + price + "," + damage + "," + danger + "," + isMagical + "," + guarantee;
+	}
 	
 	/**
 	 * Returns a String with all the weapon's data

@@ -5,21 +5,26 @@ import interfaces.ConsumableMagic;
 
 public class Gun extends Weapon implements ConsumableMagic {
 	private int power;
-	private noisy noise;
-	
-	enum noisy {
-		SILENT, NOISY
-	}
+	private Noisy noise;
 
+	//Standard constructor
 	public Gun(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
-			int power, noisy noise) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+			int power, Noisy noise) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		super(id, name, price, damage, danger, isMagical, guarantee);
 		setPower(power);
 		setNoise(noise);
 	}
 	
+	//Empty constructor
 	public Gun() {
 		
+	}
+	
+	//Copy constructor
+	public Gun(Gun anotherGun) throws NegativeNumberException, EmptyStringException, OutOfRangeException{
+		super(anotherGun);
+		setPower(anotherGun.power);
+		setNoise(anotherGun.noise);
 	}
 
 	public int getPower() {
@@ -34,11 +39,11 @@ public class Gun extends Weapon implements ConsumableMagic {
 		}
 	}
 
-	public noisy getNoise() {
+	public Noisy getNoise() {
 		return noise;
 	}
 
-	public void setNoise(noisy noise) {
+	public void setNoise(Noisy noise) {
 		this.noise = noise;
 	}
 	
@@ -65,7 +70,7 @@ public class Gun extends Weapon implements ConsumableMagic {
 	public String showLevel() {
 		String levelNoise;
 		
-		if (noise == noisy.NOISY) {
+		if (noise == Noisy.NOISY) {
 			levelNoise = "Quiet as a cat's step";
 		} else {
 			levelNoise = "Noisy like exploding fireworks";
@@ -85,6 +90,11 @@ public class Gun extends Weapon implements ConsumableMagic {
 		}
 		
 		return percentageMagic;
+	}
+	
+	@Override
+	public String toCSV() {
+		return "Gun," + super.toCSV() + "," + power + "," + noise.toString();
 	}
 	
 	@Override

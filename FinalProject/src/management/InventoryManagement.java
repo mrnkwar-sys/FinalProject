@@ -40,6 +40,21 @@ public class InventoryManagement {
 		}
 	}
 	
+	public void updateWeaponNamePrice(int id, String name, double price) {
+		Weapon weapon = stock.get(id);
+		
+		if (weapon != null) {
+			try {
+				weapon.setName(name);
+				weapon.setPrice(price);
+			} catch (EmptyStringException | NegativeNumberException e) {
+				System.out.println(e.toString());
+			}
+		} else {
+			System.out.println("It was not possible to modify the data because no weapon with that ID was found in the database");
+		}
+	}
+	
 	/**
 	 * Searches a weapon by its id
 	 * @param id The searched weapon's id

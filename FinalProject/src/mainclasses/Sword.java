@@ -8,9 +8,9 @@ public class Sword extends Weapon implements Carryable {
 	private TypeWeight weight;
 	
 	//Standard constructor
-	public Sword(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
+	public Sword(int id, String name, double price, int damage, Dangerous danger, boolean isMagical,
 			Hands type, TypeWeight weight) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setType(type);
 		setWeight(weight);
 	}
@@ -50,18 +50,18 @@ public class Sword extends Weapon implements Carryable {
 	}
 	
 	@Override 
-	public void calculateGuarantee() {
-		try {
-			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(3);
-			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(4);
-			} else {
-				super.setGuarantee(5);
-			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
+	public int calculateGuarantee() {
+		int guarantee;
+		
+		if (super.getDanger() == Dangerous.SAFE) {
+			guarantee = 3;
+		} else if (super.getDanger() == Dangerous.DANGEROUS) {
+			guarantee = 4;
+		} else {
+			guarantee = 5;
 		}
+		
+		return guarantee;
 	}
 	
 	/**
@@ -127,8 +127,13 @@ public class Sword extends Weapon implements Carryable {
 	
 	@Override
 	public String toStringAdditionalData() {
-		String normalString = weight.name().replace("_", " ");
+		String normalString = type.name().replace("_", " ");
 		
-		return "Type: " + normalString + " Weight: " + weight.name();
+		return "Type: " + normalString + " Weight: " + weight.name()
+		+ "\nMaintenance: " + obtainMaintenance()
+		+ "\nGuarantee: " + calculateGuarantee()
+		+ "\nDraw speed: " + speedDraw()
+		+ "\nAbility to block attacks: " + blockAttacks()
+		+ "\nShield recommendation: " + recommendShield();
 	} 
 }

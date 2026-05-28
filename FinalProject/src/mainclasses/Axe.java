@@ -9,9 +9,9 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	private TypeWeight weight;
 
 	//Standard constructor
-	public Axe(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee, int power,
+	public Axe(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int power,
 			TypeWeight weight) throws NegativeNumberException, OutOfRangeException, EmptyStringException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setPower(power);
 		setWeight(weight);
 	}
@@ -55,18 +55,18 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	}
 	
 	@Override
-	public void calculateGuarantee() {
-		try {
-			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(2);
-			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(3);
-			} else {
-				super.setGuarantee(4);
-			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
+	public int calculateGuarantee() {
+		int guarantee;
+		
+		if (super.getDanger() == Dangerous.SAFE) {
+			guarantee = 2;
+		} else if (super.getDanger() == Dangerous.DANGEROUS) {
+			guarantee = 3;
+		} else {
+			guarantee = 4;
 		}
+		
+		return guarantee;
 	}
 	
 	/**
@@ -112,7 +112,11 @@ public class Axe extends Weapon implements Throwable, Carryable {
 	
 	@Override
 	public String toStringAdditionalData() {
-		return " | Power: " + power + " | Weight: " + weight.name() + " | Power: " + power + " | Weight: " + weight.name() + " | Case: " + suggestCase();
+		return " | Power: " + power + " | Weight: " + weight.name() + " | Power: " + power + " | Weight: " + weight.name() + " | Case: " + suggestCase()
+			+ "Maintenance: " + obtainMaintenance()
+			+ "\n Wearing prediction: " + predictWearing()
+			+ "\n Possible maximum range: " + calculateRange() + " meters"
+			+ "\n Guarantee: " + calculateGuarantee();
 	}
 
 }

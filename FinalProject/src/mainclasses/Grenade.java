@@ -10,10 +10,10 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	private boolean isIncendiary;
 	
 	//Standard constructor
-	public Grenade(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
+	public Grenade(int id, String name, double price, int damage, Dangerous danger, boolean isMagical,
 			int power, int delay, boolean isIncendiary)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setPower(power);
 		setDelay(delay);
 		setIncendiary(isIncendiary);
@@ -70,18 +70,18 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	}
 	
 	@Override 
-	public void calculateGuarantee() {
-		try {
+	public int calculateGuarantee() {
+		int guarantee;
+		
 			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(1);
+				guarantee = 1;
 			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(2);
+				guarantee = 2;
 			} else {
-				super.setGuarantee(3);
+				guarantee = 3;
 			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
-		}
+			
+			return guarantee;
 	}
 	
 	/**
@@ -150,7 +150,12 @@ public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 			causeFire = "It burns, but nothing burst into flames";
 		}
 		
-		return "Power: " + power + " | Delay before detonation: " + delay + " | Incendiary: " + causeFire;
+		return "Power: " + power + " | Delay before detonation: " + delay + " | Incendiary: " + causeFire
+				+ "\nMaintenance: " + obtainMaintenance()
+				+ "\nGuarantee: " + calculateGuarantee()
+				+ "\nIncendiary protocol: " + incendiaryProtocol()
+				+ "\nPercentage of magic that the grenade consumes: " + magicConsumed()
+				+ "\nPossible maximum range: " + calculateRange();
 	}
 
 }

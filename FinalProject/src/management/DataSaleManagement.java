@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import exceptions.EmptyStringException;
-import exceptions.NegativeNumberException;
-import exceptions.NotEnoughMembersException;
-import exceptions.UnderAgeException;
+import exceptions.*;
 import mainclasses.*;
 
-public class DataShopManagement {
+public class DataSaleManagement {
 	private InventoryManagement inventoryManager;
 	private List<Client> activeClients;
 	private SaleManagement saleManager;
@@ -49,10 +46,13 @@ public class DataShopManagement {
 			try {
 				System.out.println("=========ADMINISTRATION PANEL=========");
 				System.out.println("1. See inventory");
-				System.out.println("2. Apply discount by weapon's type");
-				System.out.println("3. Add new weapon to the catalogue");
-				System.out.println("4. See list of clients registered");
-				System.out.println("5. Back to principal Menu");
+				System.out.println("2. See details of an specific weapon");
+				System.out.println("3. Apply discount by weapon's type");
+				System.out.println("4. Add new weapon to the catalogue");
+				System.out.println("5. See list of clients registered");
+				System.out.println("6. Update the name and price of a weapon");
+				System.out.println("7. Remove a weapon from the catalogue");
+				System.out.println("8. Back to principal Menu");
 				System.out.println("Select an option: ");
 				
 				option = sc.nextInt();
@@ -61,10 +61,26 @@ public class DataShopManagement {
 				switch (option) {
 				case 1 -> {
 					System.out.println("---Stock in warehouse---");
-					inventoryManager.getAllWeapons().forEach(weapon -> System.out.println(weapon.toString() + "\n" + weapon.toStringAdditionalData()));
+					inventoryManager.getAllWeapons().forEach(weapon -> System.out.println("♥ " + weapon.toString() + "\n"));
 				}
 				case 2 -> {
-					System.out.println("Type of weapon to be reduced: ");
+					System.out.println("Introduce the weapon's id: ");
+					int id = sc.nextInt();
+					sc.nextLine();
+					
+					Weapon weaponFound = inventoryManager.getWeapon(id);
+					
+					if (weaponFound != null) {
+						System.out.println("---BASIC DETAILS---");
+						System.out.println(weaponFound.toString());
+						System.out.println("\n---SPECIFIC DETAILS---");
+						System.out.println(weaponFound.toStringAdditionalData()); 
+					} else {
+						System.out.println("ERROR: No weapon found with that ID");
+					}
+				}
+				case 3 -> {
+					System.out.println("Type of weapon: ");
 					String type = sc.nextLine();
 					System.out.println("Discount percentage: ");
 					double percentage = sc.nextDouble();
@@ -73,15 +89,65 @@ public class DataShopManagement {
 					inventoryManager.applyDiscountByType(percentage, type);
 					System.out.println("Discount applied successfully");
 				}
-				case 3 -> {
-					//FALTA
-					
-				}
 				case 4 -> {
+					int newId = inventoryManager.getAllWeapons().size() + 1;
+					Weapon newWeapon = WeaponFactory.registerNewWeapon(newId, sc);
+					if (newWeapon != null) {
+						inventoryManager.addWeapon(newWeapon);
+						System.out.println("The weapon has been added successfully");
+					} else {
+						System.out.println("Skipping adding to inventory due to invalid data");
+					}
+				}
+				case 5 -> {
 					System.out.println("---Clients registered in the data base---");
 					activeClients.forEach(client -> System.out.println(client.toString()));
 				}
-				case 5 -> {
+				case 6 -> {
+					System.out.println("Introduce the ID of the weapon you want to update: ");
+					int id = sc.nextInt();
+					sc.nextLine();
+					
+					Weapon updateWeapon = inventoryManager.getWeapon(id);
+					
+					if (updateWeapon != null) {
+						boolean correctData = false;
+						
+						do {
+							try {
+								System.out.println("Introduce the new weapon's name: ");
+								String name = sc.nextLine();
+								
+								System.out.println("Introduce the new weapon's price");
+								double price = sc.nextDouble();
+								sc.nextLine();
+								
+								if(name.trim().isEmpty()) throw new EmptyStringException();
+								
+								updateWeapon.setName(name);
+								updateWeapon.setPrice(price);
+								correctData = true;
+								System.out.println("The weapon has been updated");
+							} catch (EmptyStringException | NegativeNumberException e) {
+								System.out.println(e.toString());
+								System.out.println("Try it again");
+							}
+						} while (!correctData);
+					}
+				}
+				case 7 -> {
+					System.out.println("Introduce the ID of the weapon you want to delete: ");
+					int id = sc.nextInt();
+					sc.nextLine();
+					
+					if (inventoryManager.getWeapon(id) != null) {
+						inventoryManager.removeWeapon(id);
+						System.out.println("The weapon has been removed from the database");
+					} else {
+						System.out.println("ERROR: A weapon with that id is not in the database");
+					}
+				}
+				case 8 -> {
 					System.out.println("Logging out of the admin pannel...");
 				}
 				default -> {
@@ -92,7 +158,7 @@ public class DataShopManagement {
 				System.out.println("Administration error: " + e.getMessage());
 				sc.nextLine();
 			}
-		} while (option != 5);
+		} while (option != 8);
 	}
 	
 	/**
@@ -121,7 +187,7 @@ public class DataShopManagement {
 				
 				switch (option) {
 				case 1 -> {
-					inventoryManager.getAllWeapons().forEach(weapon -> System.out.println(weapon.toString() + "\n" + weapon.toStringAdditionalData()));
+					inventoryManager.getAllWeapons().forEach(weapon -> System.out.println("♥ " + weapon.toString() + "\n"));
 				}
 				case 2 -> {
 					System.out.println("Introduce the weapon's ID: ");
@@ -181,7 +247,7 @@ public class DataShopManagement {
 		System.out.println("2. Register a new client (Magical Girl or Union)");
 		System.out.println("Select an option: ");
 		
-		int option = 0;
+		int option = sc.nextInt();
 		sc.nextLine();
 		
 		if (option == 1) {
@@ -194,7 +260,7 @@ public class DataShopManagement {
 			for (int i = 0; i < activeClients.size(); i++) {
 				Client c = activeClients.get(i);
 				String type = (c instanceof mainclasses.Independent) ? "Magical Girl" : "Union";
-				System.out.println((i+1) + ". " + c.toString());
+				System.out.println((i+1) + ". " + type + ". " + c.toString());
 			}
 			
 			System.out.println("Select the client number: ");
@@ -216,7 +282,7 @@ public class DataShopManagement {
 	/**
 	 * Registers and adds a new client to the database
 	 * @param sc
-	 * @return
+	 * @return A new independent/union client
 	 */
 	public Client registerNewClient(Scanner sc) {
 		System.out.println("---New Customer Registration---");
@@ -232,6 +298,8 @@ public class DataShopManagement {
 		System.out.println("2. Union");
 		int clientType = sc.nextInt();
 		sc.nextLine();
+		
+		Client newClient = null;
 		
 		if (clientType == 1) {
 			System.out.println("Introduce your age: ");
@@ -261,12 +329,8 @@ public class DataShopManagement {
 				activeClients.add(newInd);
 				System.out.println("Magical girl added successfully");
 				return newInd;
-			} catch (NegativeNumberException n) {
-				System.out.println(n.toString());
-			} catch (UnderAgeException u) {
-				System.out.println(u.toString());
-			} catch (EmptyStringException e) {
-				System.out.println(e.toString());
+			} catch (NegativeNumberException | EmptyStringException | UnderAgeException e) {
+				System.out.println("Registration failed: " + e.toString());
 			}
 			
 		} else {
@@ -283,13 +347,11 @@ public class DataShopManagement {
 	        	activeClients.add(newUni);
 	        	System.out.println("Union registered successfully");
 	        	return newUni;
-	        } catch (NegativeNumberException n) {
-	        	System.out.println(n.toString());
-	        } catch (EmptyStringException e) {
-				System.out.println(e.toString());
-			} catch (NotEnoughMembersException o) {
-				System.out.println(o.toString());
-			}
+	        } catch (NegativeNumberException | EmptyStringException | NotEnoughMembersException e) {
+	        	System.out.println("Registration failed: " + e.toString());
+	        }
 		}
+		
+		return newClient;
 	}
 }

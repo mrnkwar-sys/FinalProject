@@ -8,9 +8,9 @@ public class Gun extends Weapon implements ConsumableMagic {
 	private Noisy noise;
 
 	//Standard constructor
-	public Gun(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
+	public Gun(int id, String name, double price, int damage, Dangerous danger, boolean isMagical,
 			int power, Noisy noise) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setPower(power);
 		setNoise(noise);
 	}
@@ -53,18 +53,18 @@ public class Gun extends Weapon implements ConsumableMagic {
 	}
 	
 	@Override
-	public void calculateGuarantee() {
-		try {
-			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(1);
-			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(3);
-			} else {
-				super.setGuarantee(2);
-			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
+	public int calculateGuarantee() {
+		int guarantee; 
+		
+		if (super.getDanger() == Dangerous.SAFE) {
+			guarantee = 1;
+		} else if (super.getDanger() == Dangerous.DANGEROUS) {
+			guarantee = 3;
+		} else {
+			guarantee = 2;
 		}
+		
+		return guarantee;
 	}
 	
 	public String showLevel() {
@@ -104,6 +104,10 @@ public class Gun extends Weapon implements ConsumableMagic {
 	
 	@Override
 	public String toStringAdditionalData() {
-		return "Power: " + power + " | Level of noise it produces: " + noise.name();
+		return "Power: " + power + " | Level of noise it produces: " + noise.name()
+		+ "\nMaintenance: " + obtainMaintenance()
+		+ "\nGuarantee: " + calculateGuarantee()
+		+ "\nLevel of noise produced by the weapon: " + showLevel()
+		+ "\nPercentage of magic that the gun consumes: " + magicConsumed();
 	}
 }

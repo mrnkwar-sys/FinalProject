@@ -8,10 +8,10 @@ public class Hammer extends Weapon implements Throwable {
 	private TypeWeight weight;
 	
 	//Standard constructor
-	public Hammer(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
+	public Hammer(int id, String name, double price, int damage, Dangerous danger, boolean isMagical,
 			int strengthRequired, TypeWeight weight)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setStrengthRequired(strengthRequired);
 		setWeight(weight);
 	}
@@ -54,18 +54,18 @@ public class Hammer extends Weapon implements Throwable {
 	}
 	
 	@Override 
-	public void calculateGuarantee() {
-		try {
-			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(1);
-			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(2);
-			} else {
-				super.setGuarantee(3);
-			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
+	public int calculateGuarantee() {
+		int guarantee;
+		
+		if (super.getDanger() == Dangerous.SAFE) {
+			guarantee = 1;
+		} else if (super.getDanger() == Dangerous.DANGEROUS) {
+			guarantee = 2;
+		} else {
+			guarantee = 3;
 		}
+		
+		return guarantee;
 	}
 	
 	/**
@@ -127,6 +127,11 @@ public class Hammer extends Weapon implements Throwable {
 	
 	@Override
 	public String toStringAdditionalData() {
-		return "Strength Required: " + strengthRequired + " | Weight: " + weight.name();
+		return "Strength Required: " + strengthRequired + " | Weight: " + weight.name()
+		+ "\nMaintenance: " + obtainMaintenance()
+		+ "\nGuarantee: " + calculateGuarantee()
+		+ "\nRange of the shock wave: " + showShockWave()
+		+ "\nBreaking strength: " + breakingStrength()
+		+ "\nPossible maximum range: " + calculateRange();
 	}
 }

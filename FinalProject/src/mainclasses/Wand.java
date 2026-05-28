@@ -11,10 +11,10 @@ public class Wand extends Weapon implements ConsumableMagic {
 	private TypeMagic magic;
 
 	//Standard constructor
-	public Wand(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee,
+	public Wand(int id, String name, double price, int damage, Dangerous danger, boolean isMagical,
 			boolean isExclusive, int ownerBond, TypeMagic magic)
 			throws NegativeNumberException, EmptyStringException, OutOfRangeException {
-		super(id, name, price, damage, danger, isMagical, guarantee);
+		super(id, name, price, damage, danger, isMagical);
 		setExclusive(isExclusive);
 		setOwnerBond(ownerBond);
 		setMagic(magic);
@@ -67,18 +67,18 @@ public class Wand extends Weapon implements ConsumableMagic {
 	}
 	
 	@Override 
-	public void calculateGuarantee() {
-		try {
-			if (super.getDanger() == Dangerous.SAFE) {
-				super.setGuarantee(3);
-			} else if (super.getDanger() == Dangerous.DANGEROUS) {
-				super.setGuarantee(4);
-			} else {
-				super.setGuarantee(2);
-			}
-		} catch (NegativeNumberException e) {
-			System.out.println(e.toString());
+	public int calculateGuarantee() {
+		int guarantee;
+		
+		if (super.getDanger() == Dangerous.SAFE) {
+			guarantee = 3;
+		} else if (super.getDanger() == Dangerous.DANGEROUS) {
+			guarantee = 2;
+		} else {
+			guarantee = 4;
 		}
+		
+		return guarantee;
 	}
 	
 	/**
@@ -138,6 +138,10 @@ public class Wand extends Weapon implements ConsumableMagic {
 			exclusive = "This wand is made for everyone";
 		}
 		
-		return exclusive + " | Level of bonding needed: " + ownerBond + " | It works better (or only) with this type of magic: " + magic.name();
+		return exclusive + " | Level of bonding needed: " + ownerBond + " | It works better (or only) with this type of magic: " + magic.name()
+		+ "\nMaintenance: " + obtainMaintenance()
+		+ "\nGuarantee: " + calculateGuarantee()
+		+ "\nPossible spells: " + listPossibleSpells()
+		+ "\nPercentage of magic consumed by the wand: " + magicConsumed();
 	}
 }

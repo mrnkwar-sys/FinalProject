@@ -8,8 +8,8 @@ import mainclasses.*;
 
 public class DataPersistence {
 	//Save the files pathes in a variable
-	private static final String STOCK_FILE = "../persistence/StockData";
-	private static final String CLIENTS_FILE = "../persistence/ClientData";
+	private static final String STOCK_FILE = "src/persistence/StockData";
+	private static final String CLIENTS_FILE = "src/persistence/ClientData";
 	
 	/**
 	 * Saves the inventory in the file
@@ -62,16 +62,15 @@ public class DataPersistence {
 				int damage = Integer.parseInt(parts[4]);
 				Dangerous danger = Dangerous.valueOf(parts[5]);
 				boolean isMagical = Boolean.parseBoolean(parts[6]);
-				int guarantee = Integer.parseInt(parts[7]);
 				
 				//We determine which subclass it is in order to read its specific attributes and instantiate it
 				switch(type) {
 				case "Axe" -> {
-					int power = Integer.parseInt(parts[8]);
-					TypeWeight axeWeight = TypeWeight.valueOf(parts[9]);
+					int power = Integer.parseInt(parts[7]);
+					TypeWeight axeWeight = TypeWeight.valueOf(parts[8]);
 					
 					try {
-						Axe axe = new Axe(id, name, price, damage, danger, isMagical, guarantee, power, axeWeight);
+						Axe axe = new Axe(id, name, price, damage, danger, isMagical, power, axeWeight);
 						
 						loadedWeapons.add(axe);
 					} catch (EmptyStringException e) {
@@ -83,12 +82,12 @@ public class DataPersistence {
 					}
 				}
 				case "Grenade" -> {
-					int power = Integer.parseInt(parts[8]);
-					int delay = Integer.parseInt(parts[9]);
-					boolean isIncendiary = Boolean.parseBoolean(parts[10]);
+					int power = Integer.parseInt(parts[7]);
+					int delay = Integer.parseInt(parts[8]);
+					boolean isIncendiary = Boolean.parseBoolean(parts[9]);
 					
 					try {
-						Grenade grenade = new Grenade(id, name, price, damage, danger, isMagical, guarantee, power, delay, isIncendiary);
+						Grenade grenade = new Grenade(id, name, price, damage, danger, isMagical, power, delay, isIncendiary);
 						
 						loadedWeapons.add(grenade);
 					} catch (EmptyStringException e) {
@@ -100,11 +99,11 @@ public class DataPersistence {
 					}
 				}
 				case "Gun" -> {
-					int power = Integer.parseInt(parts[8]);
-					Noisy noiseGun = Noisy.valueOf(parts[9]);
+					int power = Integer.parseInt(parts[7]);
+					Noisy noiseGun = Noisy.valueOf(parts[8]);
 					
 					try {
-						Gun gun = new Gun(id, name, price, damage, danger, isMagical, guarantee, power, noiseGun);
+						Gun gun = new Gun(id, name, price, damage, danger, isMagical, power, noiseGun);
 						
 						loadedWeapons.add(gun);
 					} catch (EmptyStringException e) {
@@ -116,11 +115,11 @@ public class DataPersistence {
 					}
 				}
 				case "Hammer" -> {
-					int strengthRequired = Integer.parseInt(parts[8]);
-					TypeWeight hammerWeight = TypeWeight.valueOf(parts[9]);
+					int strengthRequired = Integer.parseInt(parts[7]);
+					TypeWeight hammerWeight = TypeWeight.valueOf(parts[8]);
 					
 					try {
-						Hammer hammer = new Hammer(id, name, price, damage, danger, isMagical, guarantee, strengthRequired, hammerWeight);
+						Hammer hammer = new Hammer(id, name, price, damage, danger, isMagical, strengthRequired, hammerWeight);
 						
 						loadedWeapons.add(hammer);
 					} catch (EmptyStringException e) {
@@ -132,11 +131,11 @@ public class DataPersistence {
 					}
 				}
 				case "Sword" -> {
-					Hands swordHands = Hands.valueOf(parts[8]);
-					TypeWeight swordWeight = TypeWeight.valueOf(parts[9]);
+					Hands swordHands = Hands.valueOf(parts[7]);
+					TypeWeight swordWeight = TypeWeight.valueOf(parts[8]);
 					
 					try {
-						Sword hammer = new Sword(id, name, price, damage, danger, isMagical, guarantee, swordHands, swordWeight);
+						Sword hammer = new Sword(id, name, price, damage, danger, isMagical, swordHands, swordWeight);
 						
 						loadedWeapons.add(hammer);
 					} catch (EmptyStringException e) {
@@ -148,12 +147,12 @@ public class DataPersistence {
 					}
 				}
 				case "Wand" -> {
-					boolean isExclusive = Boolean.parseBoolean(parts[8]);
-					int ownerBond = Integer.parseInt(parts[9]);
-					TypeMagic wandMagic = TypeMagic.valueOf(parts[10]);
+					boolean isExclusive = Boolean.parseBoolean(parts[7]);
+					int ownerBond = Integer.parseInt(parts[8]);
+					TypeMagic wandMagic = TypeMagic.valueOf(parts[9]);
 					
 					try {
-						Wand wand = new Wand(id, name, price, damage, danger, isMagical, guarantee, isExclusive, ownerBond, wandMagic);
+						Wand wand = new Wand(id, name, price, damage, danger, isMagical, isExclusive, ownerBond, wandMagic);
 						
 						loadedWeapons.add(wand);
 					} catch (EmptyStringException e) {

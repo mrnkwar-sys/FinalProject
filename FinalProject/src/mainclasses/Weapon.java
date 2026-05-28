@@ -12,17 +12,15 @@ public abstract class Weapon {
 	private int damage;
 	private Dangerous danger;
 	private boolean isMagical;
-	private int guarantee;
 
 	//Standar constructor
-	public Weapon(int id, String name, double price, int damage, Dangerous danger, boolean isMagical, int guarantee) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
+	public Weapon(int id, String name, double price, int damage, Dangerous danger, boolean isMagical) throws NegativeNumberException, EmptyStringException, OutOfRangeException {
 		setId(id);
 		setName(name);
 		setPrice(price);
 		setDamage(damage);
 		setDanger(danger);
 		setMagical(isMagical);
-		setGuarantee(guarantee);
 	}
 	
 	//Empty constructor
@@ -38,7 +36,6 @@ public abstract class Weapon {
 		setDamage(anotherWeapon.damage);
 		setDanger(anotherWeapon.danger);
 		setMagical(anotherWeapon.isMagical);
-		setGuarantee(anotherWeapon.guarantee);
 	}
 
 	public int getId() {
@@ -105,18 +102,6 @@ public abstract class Weapon {
 		this.isMagical = isMagical;
 	}
 	
-	public int getGuarantee() {
-		return guarantee;
-	}
-	
-	public void setGuarantee(int guarantee) throws NegativeNumberException {
-		if (guarantee >= 0) {
-			this.guarantee = guarantee;
-		} else {
-			throw new NegativeNumberException();
-		}
-	}
-	
 	/**
 	 * Tells if two weapons are, in fact, the same weapon because they have the same id
 	 * @param anotherWeapon
@@ -150,7 +135,7 @@ public abstract class Weapon {
 	 * @param danger
 	 * @return How many years will last that guarantee
 	 */
-	public abstract void calculateGuarantee();
+	public abstract int calculateGuarantee();
 	
 	/**
 	 * Returns a String with the additional data (power, type...) for each weapon
@@ -171,7 +156,7 @@ public abstract class Weapon {
 	 * @return
 	 */
 	public String toCSV() {
-		return id + "," + name + "," + price + "," + damage + "," + danger + "," + isMagical + "," + guarantee;
+		return id + "," + name + "," + price + "," + damage + "," + danger + "," + isMagical;
 	}
 	
 	/**
@@ -186,6 +171,6 @@ public abstract class Weapon {
 			magicWeapon = "This weapon does not require magic skills";
 		}
 		
-		return "ID: " + id + " | Name: " + name + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon;
+		return "ID: " + id + " | Name: " + name + " | Price:" + price + " | Damage: " + damage + " | Danger: " + danger.name() + " | " + magicWeapon;
 	}
 }

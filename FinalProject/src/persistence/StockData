@@ -1,3 +1,3 @@
 Gun,1,Pistola de Homura,40.5,8,VERY_DANGEROUS,true,85,NOISY
-Gun,2,Escopeta de Mami,60.300000000000004,5,SAFE,true,68,SILENT
-Wand,3,Varita de Sakura,100.0,7,DANGEROUS,true,false,2,WHITE_MAGIC
+Wand,3,Sakura Sweet Wand,200.0,7,DANGEROUS,true,false,2,WHITE_MAGIC
+Wand,4,Sailor's wand,150.0,7,DANGEROUS,true,true,2,WHITE_MAGIC

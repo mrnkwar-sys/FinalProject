@@ -7,6 +7,12 @@ import java.util.Scanner;
 import exceptions.*;
 import mainclasses.*;
 
+/**
+ * It manages the available options for customers and the administrator, and is responsible for opening and closing the shop, 
+ * calling the DataPersistence methods to handle the data..
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class DataSaleManagement {
 	private InventoryManagement inventoryManager;
 	private List<Client> activeClients;
@@ -100,7 +106,7 @@ public class DataSaleManagement {
 					}
 				}
 				case 5 -> {
-					System.out.println("---Clients registered in the data base---");
+					System.out.println("---Clients registered in the database---");
 					activeClients.forEach(client -> System.out.println(client.toString()));
 				}
 				case 6 -> {
@@ -177,9 +183,10 @@ public class DataSaleManagement {
 				System.out.println("=========SHOPPING MENU=========");
 				System.out.println("1. Explore weapon's catalogue");
 				System.out.println("2. Add a weapon to the cart by its ID");
-				System.out.println("3. Check the cart and its subtotal");
-				System.out.println("4. Go to the till and pay");
-				System.out.println("5. Leave the shop (Empty the car and log out)");
+				System.out.println("3. Remove a weapon from the cart");
+				System.out.println("4. Check the cart and its subtotal");
+				System.out.println("5. Go to the till and pay");
+				System.out.println("6. Leave the shop (Empty the car and log out)");
 				System.out.println("What do you want to do, magical girl?");
 				
 				option = sc.nextInt();
@@ -201,15 +208,39 @@ public class DataSaleManagement {
 					}
 				}
 				case 3 -> {
+					if (currentCart.getItems().isEmpty()) {
+						System.out.println("Your cart is empty. There is nothing to remove");
+					} else {
+						System.out.println("Introduce the weapon's ID: ");
+						int removeId = sc.nextInt();
+						
+						//Check if the weapon is in the cart
+						Weapon weaponInCart = null;
+						for (Weapon item : currentCart.getItems()) {
+							if (item.getId() == removeId) {
+								weaponInCart = item;
+								break;
+							}
+						}
+						
+						if (weaponInCart != null) {
+							currentCart.removeItem(weaponInCart);
+							System.out.println(weaponInCart.getName() + " has been removed from your cart");
+						} else {
+							System.out.println("ERROR: You do not have any weapon in your cart with that ID");
+						}
+					}
+				}
+				case 4 -> {
 					System.out.println("Your cart's content");
 					if (currentCart.getItems().isEmpty()) {
 						System.out.println("Your cart is empty :(");
 					} else {
-						currentCart.getItems().forEach(item -> System.out.println("♡ " + item.getName() + item.getPrice()));
+						currentCart.getItems().forEach(item -> System.out.println("♡ " + item.getName() + " " + item.getPrice() + " coins"));
 						System.out.println("Subtotal: " + currentCart.calculateSubtotal());
 					}
 				}
-				case 4 -> {
+				case 5 -> {
 					double subtotal = currentCart.calculateSubtotal();
 					double discount = currentClient.applyDiscount(subtotal);
 					double total = subtotal - discount;
@@ -221,7 +252,7 @@ public class DataSaleManagement {
 					
 					saleManager.processPurchase(currentClient, currentCart, payment);
 				}
-				case 5 -> {
+				case 6 -> {
 					System.out.println("Thank you for visiting us");
 				}
 				default -> {
@@ -232,7 +263,7 @@ public class DataSaleManagement {
 				System.out.println("Error during the purchase: " + e.getMessage());
 				sc.nextLine();
 			}
-		} while (option != 5);
+		} while (option != 6);
 	}
 	
 	/**

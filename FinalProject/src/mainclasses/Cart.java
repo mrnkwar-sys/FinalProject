@@ -3,6 +3,11 @@ package mainclasses;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a cart where the custromers can place their purchases 
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Cart <T extends Weapon> {
 	private List<T> items;
 	

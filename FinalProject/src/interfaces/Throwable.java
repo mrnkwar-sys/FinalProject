@@ -1,5 +1,10 @@
 package interfaces;
 
+/**
+ * Calulates the range of a weapon that can be thrown
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public interface Throwable {
 	
 	/**

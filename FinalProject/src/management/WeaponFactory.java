@@ -7,6 +7,11 @@ import exceptions.NegativeNumberException;
 import exceptions.OutOfRangeException;
 import mainclasses.Weapon;
 
+/**
+ * Handles the creation of a new weapon
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class WeaponFactory {
 	/**
 	 * Adds a new weapon to the database

@@ -3,6 +3,11 @@ package mainclasses;
 import exceptions.*;
 import interfaces.Throwable;
 
+/**
+ * Represents a hammer
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Hammer extends Weapon implements Throwable {
 	private int strengthRequired;
 	private TypeWeight weight;

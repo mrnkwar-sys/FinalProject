@@ -4,6 +4,11 @@ import mainclasses.Dangerous;
 import mainclasses.LevelExperience;
 import mainclasses.Weapon;
 
+/**
+ * Check that the customer meets the required experience level to purchase certain weapons
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public interface AvailableWeapon {
 	LevelExperience getIndependentExperience();
 	

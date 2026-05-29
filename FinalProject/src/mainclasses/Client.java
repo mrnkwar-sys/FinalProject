@@ -4,6 +4,11 @@ import java.util.Objects;
 
 import exceptions.*;
 
+/**
+ * Represents a client registered in the shop
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public abstract class Client {
 	private int id;
 	private String name;
@@ -65,7 +70,7 @@ public abstract class Client {
 	}
 	
 	public String toString() {
-		return "ID: " + id + " | Name: " + name;
+		return "ID: " + id + " | Name: " + name + " | Numbers of orders placed: " + numberOfOrders;
 	}
 	
 	public String toCSV() {

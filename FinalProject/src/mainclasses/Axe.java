@@ -4,6 +4,11 @@ import interfaces.Throwable;
 import interfaces.Carryable;
 import exceptions.*;
 
+/**
+ * Represents an axe
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Axe extends Weapon implements Throwable, Carryable {
 	private int power;
 	private TypeWeight weight;

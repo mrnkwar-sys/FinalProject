@@ -1,5 +1,10 @@
 package exceptions;
 
+/**
+ * An exception that is thrown when no weapon is found when searched for by its ID
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class WeaponNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;

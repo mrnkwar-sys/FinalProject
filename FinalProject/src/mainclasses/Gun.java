@@ -3,6 +3,11 @@ package mainclasses;
 import exceptions.*;
 import interfaces.ConsumableMagic;
 
+/**
+ * Represents a gun
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Gun extends Weapon implements ConsumableMagic {
 	private int power;
 	private Noisy noise;
@@ -71,9 +76,9 @@ public class Gun extends Weapon implements ConsumableMagic {
 		String levelNoise;
 		
 		if (noise == Noisy.NOISY) {
-			levelNoise = "Quiet as a cat's step";
-		} else {
 			levelNoise = "Noisy like exploding fireworks";
+		} else {
+			levelNoise = "Quiet as a cat's step";
 		}
 		
 		return levelNoise;
@@ -81,12 +86,14 @@ public class Gun extends Weapon implements ConsumableMagic {
 	
 	@Override
 	public int magicConsumed() {
-		int percentageMagic;
+		int percentageMagic = 0;
 		
-		if (super.getDamage() >= 5) {
-			percentageMagic = 15;
-		} else {
-			percentageMagic = 7;
+		if (super.isMagical() == true) {
+			if (super.getDamage() >= 5) {
+				percentageMagic = 15;
+			} else {
+				percentageMagic = 7;
+			}
 		}
 		
 		return percentageMagic;
@@ -106,8 +113,8 @@ public class Gun extends Weapon implements ConsumableMagic {
 	public String toStringAdditionalData() {
 		return "Power: " + power + " | Level of noise it produces: " + noise.name()
 		+ "\nMaintenance: " + obtainMaintenance()
-		+ "\nGuarantee: " + calculateGuarantee()
-		+ "\nLevel of noise produced by the weapon: " + showLevel()
-		+ "\nPercentage of magic that the gun consumes: " + magicConsumed();
+		+ "\nGuarantee: " + calculateGuarantee() + " years"
+		+ "\nDetail about the noise it produces: " + showLevel()
+		+ "\nPercentage of magic that the gun consumes: " + magicConsumed() + "%";
 	}
 }

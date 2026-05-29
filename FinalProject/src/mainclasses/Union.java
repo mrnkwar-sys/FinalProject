@@ -2,6 +2,11 @@ package mainclasses;
 
 import exceptions.*;
 
+/**
+ * Represents a kind of Client; a Union
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Union extends Client {
 	private String type;
 	private int members;
@@ -83,6 +88,6 @@ public class Union extends Client {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Type: " + type + " | Number of members: " + members;
+		return super.toString() + " | Type: " + type + " | Number of members: " + members;
 	}
 }

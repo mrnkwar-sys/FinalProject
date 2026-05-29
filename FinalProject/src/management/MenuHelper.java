@@ -7,6 +7,11 @@ import mainclasses.Noisy;
 import mainclasses.TypeMagic;
 import mainclasses.TypeWeight;
 
+/**
+ * Retrieves and assigns the enums selected by the user
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class MenuHelper {
 	/**
 	 * Shows the differents options for the TypeMagic enum and lets the user choose one

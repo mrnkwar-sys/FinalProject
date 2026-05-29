@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import exceptions.*;
 import mainclasses.*;
 
+/**
+ * It is responsible for data persistence: saving and loading data from files, including both client and weapon data.
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class DataPersistence {
 	//Save the files pathes in a variable
 	private static final String STOCK_FILE = "src/persistence/StockData";
@@ -135,9 +140,9 @@ public class DataPersistence {
 					TypeWeight swordWeight = TypeWeight.valueOf(parts[8]);
 					
 					try {
-						Sword hammer = new Sword(id, name, price, damage, danger, isMagical, swordHands, swordWeight);
+						Sword sword = new Sword(id, name, price, damage, danger, isMagical, swordHands, swordWeight);
 						
-						loadedWeapons.add(hammer);
+						loadedWeapons.add(sword);
 					} catch (EmptyStringException e) {
 						System.out.println(e.toString());
 					} catch (NegativeNumberException n) {

@@ -3,6 +3,11 @@ package management;
 import java.util.Scanner;
 import mainclasses.*;
 
+/**
+ * In which the entire application runs and, essentially, displays the main menu
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class MainShop {
 
 	public static void main(String[] args) {

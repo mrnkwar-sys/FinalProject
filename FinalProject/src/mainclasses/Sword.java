@@ -3,6 +3,11 @@ package mainclasses;
 import exceptions.*;
 import interfaces.Carryable;
 
+/**
+ * Represents a sword
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Sword extends Weapon implements Carryable {
 	private Hands type;
 	private TypeWeight weight;

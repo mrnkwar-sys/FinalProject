@@ -3,6 +3,11 @@ package mainclasses;
 import interfaces.AvailableWeapon;
 import exceptions.*;
 
+/**
+ * Represents an independent client; a magical girl
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Independent extends Client implements AvailableWeapon {
 	private int age;
 	private LevelExperience experience;

@@ -4,6 +4,11 @@ import java.util.Objects;
 
 import exceptions.*;
 
+/**
+ * Represents a weapon that is sold in the shop
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public abstract class Weapon {
 	private int id;
 	private String name;

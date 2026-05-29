@@ -3,6 +3,11 @@ package mainclasses;
 import exceptions.*;
 import interfaces.ConsumableMagic;
 
+/**
+ * Represents a wand
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Wand extends Weapon implements ConsumableMagic {
 	//It requires a specific kind of magic
 	private boolean isExclusive;

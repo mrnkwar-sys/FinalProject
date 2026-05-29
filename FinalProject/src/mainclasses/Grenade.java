@@ -4,6 +4,11 @@ import interfaces.Throwable;
 import exceptions.*;
 import interfaces.ConsumableMagic;
 
+/**
+ * Represents an grenade
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class Grenade extends Weapon implements Throwable, ConsumableMagic {
 	private int power;
 	private int delay;

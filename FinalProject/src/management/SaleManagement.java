@@ -3,6 +3,11 @@ package management;
 import mainclasses.*;
 import interfaces.*;
 
+/**
+ * Process the customer's purchase
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class SaleManagement {
 	
 	/**

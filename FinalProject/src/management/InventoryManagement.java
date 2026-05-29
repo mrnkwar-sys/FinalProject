@@ -8,6 +8,12 @@ import java.util.stream.Collectors;
 import mainclasses.*;
 import exceptions.*;
 
+/**
+ * Manage all aspects of the inventory, such as adding, displaying and searching for 
+ * weapons, applying discounts and using the filtering options
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public class InventoryManagement {
 	private Map<Integer, Weapon> stock;
 	

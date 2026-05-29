@@ -2,6 +2,11 @@ package interfaces;
 
 import mainclasses.TypeWeight;
 
+/**
+ * Depending on the weight of the weapon, suggests or not a case
+ * @author Raquel Nkwar
+ * @version 1.0
+ */
 public interface Carryable {
 	TypeWeight getWeight();
 	
